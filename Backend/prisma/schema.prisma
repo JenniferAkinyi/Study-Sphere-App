@@ -22,5 +22,19 @@ model User {
   dailyStudyMinutes Int      @default(0)
   dailyGoalHours    Int      @default(2)
   createdAt         DateTime @default(now())
+  groups            Group[]  @relation("GroupMembers")
+}
+enum Privacy {
+  PUBLIC
+  PRIVATE
+}
+model Group{
+  id          String   @id @default(uuid())
+  name        String
+  topic       String
+  description String?
+  privacy     Privacy  @default(PUBLIC)
+  members     User[]   @relation("GroupMembers")
+  createdAt   DateTime @default(now())
 }
 

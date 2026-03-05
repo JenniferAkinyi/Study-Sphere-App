@@ -1,13 +1,16 @@
-import { Router } from 'express';
-import { allUsers, deleteUser, fetchById, updateUser, resetPassword, requestPasswordReset  } from '../controllers/user.js';
+import express from 'express';
+import { createUserSchema } from '../middlewares/validators/userValidators.js';
+import { deleteUserById, fetchById, getAllUsers, loginUser, postUser, updatedUserById  } from '../controllers/userController.js';
 
-const userRouter = Router();
+const userRouter = express.Router();
 
-userRouter.get('/allusers', allUsers)
+userRouter.post('/register', createUserSchema, postUser);
+userRouter.post('/login', loginUser);
+userRouter.get('/allusers', getAllUsers)
 userRouter.get('/:id', fetchById)
-userRouter.patch('/:id', updateUser)
-userRouter.delete('/:id', deleteUser)
-userRouter.post('/request-password-reset', requestPasswordReset); 
-userRouter.put('/reset-password/:token', resetPassword); 
+userRouter.patch('/:id', updatedUserById)
+userRouter.delete('/:id', deleteUserById)
+// userRouter.post('/request-password-reset', requestPasswordReset); 
+// userRouter.put('/reset-password/:token', resetPassword); 
 
 export default userRouter;

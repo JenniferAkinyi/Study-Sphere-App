@@ -7,14 +7,11 @@ import { errorHandler } from './middlewares/errorHandler.js';
 
 dotenv.config();
 
-// import routers
 import userRouter from './routes/user.router.js';
-import authRouter from './routes/auth.router.js';
-
+import groupRouter from "./routes/group.router.js";
 
 const app = express();
 const port = process.env.PORT || 3000;
-
 
 app.use(errorHandler);
 app.use(express.json());
@@ -30,7 +27,8 @@ app.use(cors(
 app.use(morgan('dev'))
 
 app.use('/api/users', userRouter);
-app.use('/api/auth', authRouter);
+app.use('/api/groups', groupRouter)
+
 app.get('/api/healthcheck', (req, res) => {
   res.send('Server is running');
 });
