@@ -23,6 +23,7 @@ model User {
   dailyGoalHours    Int      @default(2)
   createdAt         DateTime @default(now())
   groups            Group[]  @relation("GroupMembers")
+  comments          Comment[]
 }
 enum Privacy {
   PUBLIC
@@ -36,5 +37,23 @@ model Group{
   privacy     Privacy  @default(PUBLIC)
   members     User[]   @relation("GroupMembers")
   createdAt   DateTime @default(now())
+  comments    Comment[]
+}
+model Comment {
+  id        String   @id @default(uuid())
+  content   String
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId  String
+  group     Group    @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  groupId   String
+
+  parentId  String?  
+  parent    Comment? @relation("CommentReplies", fields: [parentId], references: [id])
+  replies   Comment[] @relation("CommentReplies")
+
+  rootId    String?
+  depth     Int      @default(0)
+  createdAt DateTime @default(now())
+  editedAt  DateTime?
 }
 

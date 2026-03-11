@@ -9,6 +9,7 @@ dotenv.config();
 
 import userRouter from './routes/user.router.js';
 import groupRouter from "./routes/group.router.js";
+import commentRouter from './routes/comment.router.js';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -28,6 +29,7 @@ app.use(morgan('dev'))
 
 app.use('/api/users', userRouter);
 app.use('/api/groups', groupRouter)
+app.use('/api/groups', commentRouter)
 
 app.get('/api/healthcheck', (req, res) => {
   res.send('Server is running');

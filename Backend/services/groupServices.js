@@ -27,7 +27,7 @@ export async function fetchGroupById(id) {
         where:{ id }
     })
     if(!group){
-        throw new Error ("Group not found")
+        throw new Error("Group not found")
     }
     return group
 }
