@@ -6,10 +6,10 @@ import "react-circular-progressbar/dist/styles.css";
 import { useUser } from "../../../context/userContext";
 
 const GoalCard = () => {
-  const { userData, loading } = useUser();
-  const completed = userData?.hoursCompleted || 0;
-  const goal = userData?.dailyGoalHours || 5;
-  const streak = userData?.streak || 0;
+  const { user } = useUser()
+  const completed =((user?.dailyStudyMinutes || 0) /60);
+  const goal = user?.dailyGoalHours || 0;
+  const streak = user?.currentStreak || 0;
   const percentage = Math.round((completed / goal) * 100);
 
   return (
@@ -20,7 +20,7 @@ const GoalCard = () => {
         </div>
         <div className="space-y-1">
           <h1 className="font-semibold">
-            Daily Study Goal <span className="text-indigo-500">4/5 hrs</span>
+            Daily Study Goal <span className="text-indigo-500">{completed}/{goal}</span>
           </h1>
           <div className="flex items-center gap-1">
             <FaFire size={14} className="text-red-600" />

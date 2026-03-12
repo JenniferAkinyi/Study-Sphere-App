@@ -10,7 +10,7 @@ import { useUser } from "../../context/userContext";
 
 const Topbar = () => {
   const { toggleSidebar } = useContext(SidebarContext);
-  const { userData } = useUser();
+  const { user } = useUser();
 
   return (
     <header className="fixed top-0 left-0 right-0 z-30 flex items-center justify-between gap-4 px-4 py-2 bg-white shadow-sm md:left-64 md:px-6">
@@ -41,11 +41,11 @@ const Topbar = () => {
         <span className="text-gray-400">|</span>
         <div className="flex items-center gap-2">
           <span className="hidden font-medium sm:block">
-            {userData?.username || "Guest"}
+            {user?.name || "Guest"}
           </span>
           <Avatar
-            username={userData?.username || "Guest"}
-            profileImage={userData?.profileImage}
+            username={user?.name || "Guest"}
+            profileImage={user?.profileImage}
             size={32}
           />
         </div>

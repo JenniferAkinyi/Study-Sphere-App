@@ -47,6 +47,10 @@ export async function loginUserService(email, password) {
       id: user.id,
       email: user.email,
       name: user.name,
+      currentStreak: user.currentStreak,
+      previousStreak: user.previousStreak,
+      dailyGoalHours: user.dailyGoalHours,
+      dailyStudyMinutes: user.dailyStudyMinutes
     },
   };
 }
@@ -61,6 +65,15 @@ export async function fetchAllUsers() {
 export async function fetchUserById(id) {
   const user = await prisma.user.findUnique({
     where: { id },
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      currentStreak: true,
+      previousStreak: true,
+      dailyGoalHours: true,
+      dailyStudyMinutes: true
+    }
   });
   if (!user) {
     throw new Error("User not found!");

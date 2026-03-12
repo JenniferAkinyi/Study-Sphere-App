@@ -5,6 +5,10 @@ import Signup from "./components/Authentication/Signup";
 import Login from "./components/Authentication/Login";
 import Dashboard from "./components/Dashboard/Dashboard";
 import AppLayout from "./layout/AppLayout";
+import PostDetails from './components/Posts/PostDetails'
+import StudyScreen from './components/Study Group/StudyScreen'
+// import StudyGoalsPage from './components/Study Group/Components/'
+
 
 function App() {
   return (
@@ -17,8 +21,8 @@ function App() {
 
             <Route element={<AppLayout />}>
               <Route path="/dashboard" element={<Dashboard />} />
-              {/* <Route path="/post/:id" element={<PostDetails />} /> */}
-              {/* <Route path="/studygroup" element={<StudyScreen />} /> */}
+              <Route path="/post/:id" element={<PostDetails />} />
+              <Route path="/studygroup" element={<StudyScreen />} />
               {/* <Route path="/studygoals" element={<StudyGoalsPage />} /> */}
             </Route>
           </Routes>

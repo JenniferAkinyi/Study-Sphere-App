@@ -18,3 +18,15 @@ export const login = async (email, password) => {
   });
   return response;
 };
+export const fetchUserById = async (id) =>{
+  const response = await api.get(`/users/${id}`)
+  return response.data
+}
+export const createGroup = async(groupData) => {
+  const response = await api.post("/groups/creategroup", groupData)
+  return response
+}
+export const fetchGroup = async() => {
+  const response = await api.get("/groups/allgroups")
+  return response.data
+}

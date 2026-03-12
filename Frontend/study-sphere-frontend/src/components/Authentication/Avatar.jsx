@@ -1,6 +1,10 @@
 import React from "react";
+import { useUser } from "../../context/userContext";
 
-const Avatar = ({ username, profileImage, size = 40 }) => {
+const Avatar = ({ size = 40 }) => {
+  const { user } = useUser()
+  const username = user?.name
+  const profileImage = user?.profileImage
   const getInitials = (name) => {
     if (!name) return ""
     return name
