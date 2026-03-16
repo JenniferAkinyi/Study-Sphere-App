@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaPlus } from "react-icons/fa6";
 import CreateGroup from "./Components/CreateGroup";
 
 const StudyScreen = () => {
+  const [openModal, setOpenModal] = useState(false);
+
   return (
     <>
       <div className="flex items-center justify-between p-4 mx-auto max-w-7xl">
@@ -12,14 +14,26 @@ const StudyScreen = () => {
             Collaborate, share resources and study together with your academic peers
           </p>
         </div>
-        <div className="">
-          <button className="flex items-center gap-1 p-2 text-sm font-semibold text-white bg-indigo-500 rounded-xl">
-            <FaPlus className="text-white" />
-            Create New Group
-          </button>
-        </div>
+
+        <button
+          onClick={() => setOpenModal(true)}
+          className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-white bg-indigo-500 rounded-xl hover:bg-indigo-600"
+        >
+          <FaPlus />
+          Create New Group
+        </button>
       </div>
-      <CreateGroup />
+
+      {openModal && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm"
+          onClick={() => setOpenModal(false)}
+        >
+          <div onClick={(e) => e.stopPropagation()}>
+            <CreateGroup closeModal={() => setOpenModal(false)} />
+          </div>
+        </div>
+      )}
     </>
   );
 };

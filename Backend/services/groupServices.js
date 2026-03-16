@@ -1,17 +1,22 @@
 import prisma from "../config/db.js";
 
-export async function createGroupService(name, topic, description){
+export async function createGroupService(name, topic, description, privacy, members){
     try {
         const group = await prisma.group.create({
             data: {
-                name, topic, description
+                name,
+                topic,
+                description,
+                privacy,
+                members: {
+                    connect: members.map((id) => ({ id }))
+                }
+            },
+            include: {
+                members: true
             }
         })
-        return{
-            name: group.name,
-            topic: group.topic,
-            description: group.description
-        }
+        return group
     } catch (error) {
         throw new Error("Error creating group") 
     }

@@ -22,6 +22,10 @@ export const fetchUserById = async (id) =>{
   const response = await api.get(`/users/${id}`)
   return response.data
 }
+export const searchUsers = async (query) => {
+  const response = await api.get(`/users/search?q=${query}`);
+  return response.data;
+};
 export const createGroup = async(groupData) => {
   const response = await api.post("/groups/creategroup", groupData)
   return response

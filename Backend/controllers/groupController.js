@@ -2,11 +2,11 @@ import { createGroupService, deleteGroup, fetchAllGroups, fetchGroupById, update
 
 export async function createGroup(req, res){
     try {
-        const { name, topic, description } = req.body
+        const { name, topic, description, privacy, members } = req.body
         if(!name || !topic || !description){
             return res.status(400).json({message: "All fields are required"})
         }
-        const group = await createGroupService(name, topic, description)
+        const group = await createGroupService(name, topic, description, privacy, members)
         return res.status(201).json({message: "Group created successfully", details: group})
     } catch (error) {
         return res.status(500).json({message: error.message})

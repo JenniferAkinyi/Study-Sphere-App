@@ -4,7 +4,8 @@ import {
   fetchUserById,
   updatedUser,
   deleteUser,
-  loginUserService
+  loginUserService,
+  searchUsersService
 } from "../services/userServices.js";
 
 export async function loginUser(req, res) {
@@ -72,5 +73,14 @@ export async function deleteUserById(req, res) {
     return res
       .status(404)
       .json({ message: error.message });
+  }
+}
+export async function searchUsers(req, res){
+  try {
+    const {q} = req.query
+    const users = await searchUsersService(q)
+    return res.status(200).json({details: users})
+  } catch (error) {
+    return res.status(500).json({message: 'Failed to search users'})
   }
 }

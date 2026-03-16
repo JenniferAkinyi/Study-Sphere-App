@@ -121,3 +121,31 @@ export async function deleteUser(id) {
   });
   return { message: "User deleted successfully"};
 }
+export async function searchUsersService(query){
+  if (!query) return[]
+  const users = await prisma.user.findMany({
+    where: {
+      OR: [
+        {
+          name: {
+            contains: query,
+            mode: 'insensitive'
+          }
+        },
+        {
+          email: {
+            contains: query,
+            mode: 'insensitive'
+          }
+        }
+      ]
+    },
+    select: {
+      id: true,
+      name: true,
+      email: true
+    },
+    take: 5
+  })
+  return users
+}
