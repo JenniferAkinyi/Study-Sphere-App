@@ -22,8 +22,24 @@ model User {
   dailyStudyMinutes Int      @default(0)
   dailyGoalHours    Int      @default(2)
   createdAt         DateTime @default(now())
-  groups            Group[]  @relation("GroupMembers")
   comments          Comment[]
+  invitations       GroupInvitation[]
+  memberships       GroupMember[]
+}
+enum Role {
+  OWNER
+  MEMBER
+  ADMIN
+}
+model GroupMember{
+  id        String   @id @default(uuid())
+  groupId   String
+  userId    String
+  role      Role     @default(MEMBER)
+  joinedAt  DateTime @default(now())
+  group     Group    @relation(fields: [groupId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+  @@unique([groupId, userId])
 }
 enum Privacy {
   PUBLIC
@@ -35,10 +51,29 @@ model Group{
   topic       String
   description String?
   privacy     Privacy  @default(PUBLIC)
-  members     User[]   @relation("GroupMembers")
   createdAt   DateTime @default(now())
   comments    Comment[]
+  invitations GroupInvitation[]
+  members     GroupMember[]
 }
+enum InvitationStatus {
+  PENDING
+  ACCEPTED
+  DECLINED
+}
+model GroupInvitation {
+  id          String   @id @default(uuid())
+  groupId     String
+  userId      String
+  status      InvitationStatus @default(PENDING)
+  createdAt   DateTime @default(now())
+  @@unique([groupId, userId])
+  group       Group    @relation(fields: [groupId], references: [id])
+  user        User     @relation(fields: [userId], references: [id])
+}
+
+
+
 model Comment {
   id        String   @id @default(uuid())
   content   String

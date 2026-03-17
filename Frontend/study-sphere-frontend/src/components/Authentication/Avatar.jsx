@@ -1,17 +1,14 @@
 import React from "react";
-import { useUser } from "../../context/userContext";
 
-const Avatar = ({ size = 40 }) => {
-  const { user } = useUser()
-  const username = user?.name
-  const profileImage = user?.profileImage
+const Avatar = ({ username, profileImage, size = 40 }) => {
+
   const getInitials = (name) => {
-    if (!name) return ""
+    if (!name) return "";
     return name
       .split(" ")
       .map((n) => n[0])
       .join("")
-      .toUpperCase()
+      .toUpperCase();
   };
 
   const colors = [
@@ -22,8 +19,9 @@ const Avatar = ({ size = 40 }) => {
     "bg-pink-500",
     "bg-orange-500",
   ];
-  const colorIndex = username ? username.charCodeAt(0) % colors.length : 0
-  const bgColor = colors[colorIndex]
+
+  const colorIndex = username ? username.charCodeAt(0) % colors.length : 0;
+  const bgColor = colors[colorIndex];
 
   return profileImage ? (
     <img

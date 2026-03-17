@@ -7,6 +7,14 @@ const api = axios.create({
     "Content-Type": "application/json",
   },
 });
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
 export const register = async (userData) => {
   const response = await api.post("/users/register", userData);
   return response;
@@ -33,4 +41,8 @@ export const createGroup = async(groupData) => {
 export const fetchGroup = async() => {
   const response = await api.get("/groups/allgroups")
   return response.data
+}
+export const fetchMyGroups = async() => {
+  const response = await api.get('/groups/mygroups')
+  return response.data.groups
 }

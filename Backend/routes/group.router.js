@@ -1,9 +1,11 @@
 import express from "express";
-import { createGroup, deleteGroupById, fetchById, getAllGroups, updatedGroupByid } from "../controllers/groupController.js";
+import { authenticateUser } from "../middlewares/authMiddleware.js";
+import { createGroup, deleteGroupById, fetchById, getAllGroups, updatedGroupByid, myGroups } from "../controllers/groupController.js";
 
 const groupRouter = express.Router()
-groupRouter.post('/creategroup', createGroup)
+groupRouter.post('/creategroup',authenticateUser, createGroup)
 groupRouter.get('/allgroups', getAllGroups)
+groupRouter.get('/mygroups', authenticateUser, myGroups)
 groupRouter.get('/:id', fetchById)
 groupRouter.patch('/:id', updatedGroupByid)
 groupRouter.delete('/:id', deleteGroupById)

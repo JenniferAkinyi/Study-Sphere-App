@@ -1,12 +1,13 @@
-import { createGroupService, deleteGroup, fetchAllGroups, fetchGroupById, updateGroup } from "../services/groupServices.js";
+import { createGroupService, deleteGroup, fetchAllGroups, fetchGroupById, updateGroup, myGroupsServices } from "../services/groupServices.js";
 
 export async function createGroup(req, res){
     try {
         const { name, topic, description, privacy, members } = req.body
+        const creatorId = req.user.id
         if(!name || !topic || !description){
             return res.status(400).json({message: "All fields are required"})
         }
-        const group = await createGroupService(name, topic, description, privacy, members)
+        const group = await createGroupService({name, topic, description, privacy, creatorId, inviteeIds: members || []})
         return res.status(201).json({message: "Group created successfully", details: group})
     } catch (error) {
         return res.status(500).json({message: error.message})
@@ -45,5 +46,17 @@ export async function deleteGroupById(req, res){
     } catch (error) {
         return res.status(404).json({ message: error.message})
         
+    }
+}
+export async function myGroups(req, res) {
+    try {
+        const id = req.user.id
+        if(!id){
+            return res.status(401).json({message: "Unauthorized"})
+        }
+        const groups = await myGroupsServices(id)
+        return res.status(200).json({message: 'Groups fetched successfully', groups})
+    } catch (error) {
+        return res.status(500).json({message: error.message})
     }
 }

@@ -1,6 +1,6 @@
 import prisma from "../config/db.js";
 
-export async function createGroupService(name, topic, description, privacy, members){
+export async function createGroupService(name, topic, description, privacy, creatorId, inviteeIds = []){
     try {
         const group = await prisma.group.create({
             data: {
@@ -9,11 +9,23 @@ export async function createGroupService(name, topic, description, privacy, memb
                 description,
                 privacy,
                 members: {
-                    connect: members.map((id) => ({ id }))
+                    create: [
+                        {
+                            userId: creatorId,
+                            role: 'OWNER'
+                        }
+                    ]
+                },
+                invitations: {
+                    create: inviteeIds.map((id) => ({
+                        userId: id,
+                        status: 'PENDING'
+                    }))
                 }
             },
             include: {
-                members: true
+                members: { include: {user: true}},
+                invitations: { include: {user: true}}
             }
         })
         return group
@@ -62,4 +74,20 @@ export async function deleteGroup(id){
         where: { id}
     })
     return { message: "Group deleted successfully"}
+}
+// joined groups
+export async function myGroupsServices(id){
+    const groups = await prisma.group.findMany({
+        where: {
+            members: {
+                some: {
+                    id: id
+                }
+            }
+        },
+        include: {
+            members: true
+        }
+    })
+    return groups
 }
