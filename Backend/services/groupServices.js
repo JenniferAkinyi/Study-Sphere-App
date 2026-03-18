@@ -30,7 +30,7 @@ export async function createGroupService(name, topic, description, privacy, crea
         })
         return group
     } catch (error) {
-        throw new Error("Error creating group") 
+        throw new Error("Error creating group")
     }
 }
 // get all groups
@@ -81,12 +81,16 @@ export async function myGroupsServices(id){
         where: {
             members: {
                 some: {
-                    id: id
+                    userId: id
                 }
             }
         },
         include: {
-            members: true
+            members: {
+                include: {
+                    user: true
+                }
+            }
         }
     })
     return groups

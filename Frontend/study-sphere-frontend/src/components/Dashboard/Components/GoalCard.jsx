@@ -7,10 +7,10 @@ import { useUser } from "../../../context/userContext";
 
 const GoalCard = () => {
   const { user } = useUser()
-  const completed =((user?.dailyStudyMinutes || 0) /60);
+  const completed =((user?.dailyStudyMinutes || 0) /60).toFixed(1);
   const goal = user?.dailyGoalHours || 0;
   const streak = user?.currentStreak || 0;
-  const percentage = Math.round((completed / goal) * 100);
+  const percentage = ((completed / goal) * 100).toFixed(1);
 
   return (
     <div className="flex items-center justify-between p-3 bg-white border border-gray-200 rounded-lg max-w-80">
