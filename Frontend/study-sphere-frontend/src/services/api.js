@@ -50,11 +50,11 @@ export const fetchInvites = async() => {
   const response = await api.get('/invites/pending')
   return response.data
 }
-export const acceptInvite = async() => {
-  const response = await api.post(`/${inviteId}/accept`)
+export const acceptInvite = async(inviteId) => {
+  const response = await api.post(`/invites/${inviteId}/accept`)
   return response.data
 }
-export const declineInvite = async () => {
-  const response = await api.post(`/${inviteId}/decline`)
+export const declineInvite = async (inviteId) => {
+  const response = await api.post(`/invites/${inviteId}/decline`)
   return response.data
 } 
