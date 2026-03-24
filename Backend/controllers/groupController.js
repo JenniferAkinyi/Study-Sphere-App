@@ -1,4 +1,4 @@
-import { createGroupService, deleteGroup, fetchAllGroups, fetchGroupById, updateGroup, myGroupsServices } from "../services/groupServices.js";
+import { createGroupService, deleteGroup, fetchAllGroups, fetchGroupById, updateGroup, myGroupsServices, discoverGroupService } from "../services/groupServices.js";
 
 export async function createGroup(req, res){
     try {
@@ -62,5 +62,15 @@ export async function myGroups(req, res) {
         return res.status(200).json({message: 'Groups fetched successfully', groups})
     } catch (error) {
         return res.status(500).json({message: error.message})
+    }
+}
+export async function discoverGroups(req, res){
+    try {
+        const userId = req.user.id
+        const groups = await discoverGroupService(userId)
+        res.status(200).json(groups)
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({message: 'Failed to fetch groups'})
     }
 }

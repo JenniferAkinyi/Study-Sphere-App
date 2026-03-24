@@ -6,6 +6,7 @@ import CreateGroup from "./Components/CreateGroup";
 import ConfirmModal from "./Components/ConfirmModal";
 import { fetchInvites, acceptInvite, declineInvite } from "../../services/api";
 import AllGroups from "./Components/AllGroups";
+import DiscoverGroups from "./Components/DiscoverGroups";
 
 const StudyScreen = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -105,11 +106,31 @@ const StudyScreen = () => {
             <div className="flex items-center justify-between gap-2">
               <div className="flex items-center gap-2">
                 <MdFolderShared className="text-indigo-500" />
-                <h1 className="text-base font-bold">Joined Groups</h1> 
+                <h1 className="text-base font-bold">Joined Groups</h1>
               </div>
-              <button className="flex items-center gap-2 px-3 py-1 font-semibold text-white bg-indigo-500 border rounded-xl">View all Groups<IoIosArrowForward className="font-semibold"/></button>
+              <button className="flex items-center gap-2 px-3 py-1 font-semibold text-white bg-indigo-500 border rounded-xl">
+                View all Groups
+                <IoIosArrowForward className="font-semibold" />
+              </button>
             </div>
             <AllGroups />
+          </div>
+          <div className="mt-6">
+            <div className="flex items-center justify-between">
+              <div className="flex flex-col items-start gap-2 -space-y-2">
+                <div className="flex items-center gap-2">
+                  <MdFolderShared className="text-indigo-500" />
+                  <h1 className="text-base font-bold">
+                    Discover New Communities
+                  </h1>
+                </div>
+                <p className="text-sm font-semibold text-gray-500">Based on your interests and enrolled courses</p>
+              </div>
+              <p className="flex items-center gap-2 px-3 py-1 text-sm font-semibold text-indigo-500 cursor-pointer">
+                Browse All Groups
+              </p>
+            </div>
+            <DiscoverGroups />
           </div>
         </div>
       )}
@@ -133,11 +154,8 @@ const StudyScreen = () => {
         }}
         onConfirm={async () => {
           if (!selectedInvite) return;
-
           await declineInvite(selectedInvite.id);
-
           setInvites((prev) => prev.filter((i) => i.id !== selectedInvite.id));
-
           setConfirmOpen(false);
           setSelectedInvite(null);
         }}

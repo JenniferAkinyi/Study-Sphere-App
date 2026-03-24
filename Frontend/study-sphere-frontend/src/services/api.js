@@ -58,3 +58,7 @@ export const declineInvite = async (inviteId) => {
   const response = await api.post(`/invites/${inviteId}/decline`)
   return response.data
 } 
+export const fetchDiscoveredGroups = async () => {
+  const response = await api.get('/groups/discover')
+  return response.data
+}

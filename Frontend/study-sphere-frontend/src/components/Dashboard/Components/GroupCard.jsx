@@ -4,7 +4,7 @@ import Avatar from "../../Authentication/Avatar";
 
 const GroupCard = ({ group }) => {
   return (
-    <div className="w-full p-6 bg-white border border-gray-200 sm:w-80 lg:w-80">
+    <div className="w-full p-6 bg-white border border-gray-200 sm:w-80 lg:w-80 ">
       <div className="flex items-center justify-between">
         <div className="flex -space-x-3">
           {group?.members?.slice(0, 2).map((member) => (

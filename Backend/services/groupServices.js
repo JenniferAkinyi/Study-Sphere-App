@@ -95,3 +95,32 @@ export async function myGroupsServices(id){
     })
     return groups
 }
+export async function discoverGroupService(userId){
+    const groups = await prisma.group.findMany({
+        where: {
+            AND: [
+                {
+                    members: {
+                        none: {
+                            userId: userId
+                        }
+                    }
+                },
+                {invitations: {
+                    none: {
+                        userId: userId
+                    }
+                }}
+            ]
+        },
+        include: {
+            members: {
+                include: {
+                    user: true
+                }
+            }
+        },
+        take: 6
+    })
+    return groups
+}

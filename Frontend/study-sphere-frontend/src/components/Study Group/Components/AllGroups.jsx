@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { fetchMyGroups } from '../../../services/api';
-import GroupCard from '../../Dashboard/Components/GroupCard';
+import AllGroupsCard from './AllGroupsCard';
 
 const AllGroups = () => {
   const [groups, setGroups] = useState([]);
@@ -20,13 +20,13 @@ const AllGroups = () => {
 
   return (
     <>
-   <div className="flex flex-row gap-4 mt-3 px-7">
+   <div className="flex flex-row gap-4 mt-3">
          {groups.length === 0 ? (
           <p className="mt-3 text-sm text-gray-500 px-7">
             No groups joined yet
           </p>
         ) : (
-          groups.map((group) => <GroupCard key={group.id} group={group} />)
+          groups.map((group) => <AllGroupsCard key={group.id} group={group} />)
         )}
       </div>
     </>
