@@ -8,6 +8,7 @@ import AppLayout from "./layout/AppLayout";
 import PostDetails from './components/Posts/PostDetails'
 import StudyScreen from './components/Study Group/StudyScreen'
 // import StudyGoalsPage from './components/Study Group/Components/'
+import Group from "./components/Group/Group";
 
 
 function App() {
@@ -23,7 +24,7 @@ function App() {
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/post/:id" element={<PostDetails />} />
               <Route path="/studygroup" element={<StudyScreen />} />
-              {/* <Route path="/studygoals" element={<StudyGoalsPage />} /> */}
+              <Route path="/studygoals" element={<Group />} />
             </Route>
           </Routes>
         </SidebarProvider>
