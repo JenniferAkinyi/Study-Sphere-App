@@ -8,7 +8,7 @@ const AllFeed = () => {
   const { user } = useUser();
   return (
     <div className="p-4 bg-indigo-100">
-      <div className="flex items-center">
+      <div className="flex items-center gap-2">
         <div className="flex">
           <Avatar
             username={user?.name || "Guest"}
@@ -17,13 +17,13 @@ const AllFeed = () => {
           />
         </div>
         <div>
-            <p>{user?.name}</p>
+            <p className="font-semibold">{user?.name}</p>
         </div>
       </div>
       <div>
         <div>        
-            <h1>Comprehensive guide to Schrodinger's Cat Paradox</h1>
-            <p>If the atom decays (a 50% probability within an hour), the Geiger
+            <h1 className="text-lg font-bold">Comprehensive guide to Schrodinger's Cat Paradox</h1>
+            <p className="text-gray-500">If the atom decays (a 50% probability within an hour), the Geiger
                 counter triggers the hammer to break the flask, releasing poison 
                 and killing the cat; if it does not decay, the cat lives. 
                 According to quantum superposition, until the box is opened, 
@@ -32,13 +32,14 @@ const AllFeed = () => {
                 being both alive and dead.
             </p>
         </div>
-        <div className="flex ">
-            <div>
-                <p><GoClock />12 min read</p>
+        <div className="flex items-center justify-between mt-4">
+            <div className="flex items-center gap-1">
+                <GoClock className="hover:text-indigo-500"/>
+                <p className="text-sm text-gray-500">12 min read</p>
             </div>
-            <div>
-                <CiBookmark />
-                <CiShare2 />
+            <div className="flex gap-2">
+                <CiBookmark className="hover:text-indigo-500"/>
+                <CiShare2 className="hover:text-indigo-500"/>
             </div>
         </div>
       </div>
