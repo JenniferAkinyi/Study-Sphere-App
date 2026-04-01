@@ -24,7 +24,8 @@ function App() {
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/post/:id" element={<PostDetails />} />
               <Route path="/studygroup" element={<StudyScreen />} />
-              <Route path="/studygoals" element={<Group />} />
+              <Route path="/groups/:groupId" element={<Group />} />
+              {/* <Route path="/studygoals" element={<Group />} /> */}
             </Route>
           </Routes>
         </SidebarProvider>

@@ -46,6 +46,10 @@ export const fetchMyGroups = async() => {
   const response = await api.get('/groups/mygroups')
   return response.data.groups
 }
+export const fetchGroupId = async(groupId) => {
+  const response = await api.get(`/groups/${groupId}`)
+  return response.data
+}
 export const fetchInvites = async() => {
   const response = await api.get('/invites/pending')
   return response.data
@@ -62,3 +66,4 @@ export const fetchDiscoveredGroups = async () => {
   const response = await api.get('/groups/discover')
   return response.data
 }
+

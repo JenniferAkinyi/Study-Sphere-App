@@ -14,7 +14,6 @@ export async function createGroup(req, res){
         const group = await createGroupService(name, topic, description, privacy, creatorId, members || [])
         return res.status(201).json({message: "Group created successfully", details: group})
     } catch (error) {
-        console.log(error)
         return res.status(500).json({message: error.message}) 
     }
 }

@@ -1,8 +1,10 @@
 import React from "react";
 import Avatar from "../../Authentication/Avatar";
 import { FaArrowRight } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const AllGroupsCard = ({ group }) => {
+  const navigate = useNavigate()
   return (
     <div className="w-full p-5 bg-white border border-gray-200 sm:w-60 lg:w-60 rounded-xl">
       <div className="space-y-1">
@@ -26,8 +28,14 @@ const AllGroupsCard = ({ group }) => {
             </span>
           )}
         </div>
-        <p className="flex items-center gap-1 text-sm text-indigo-500 cursor-pointer">View Group <FaArrowRight/></p>
+        <p 
+          onClick={() => navigate(`/groups/${group.id}`)}
+          className="flex items-center gap-1 text-sm text-indigo-500 cursor-pointer"
+        >
+          View Group <FaArrowRight/>
+        </p>
       </div>
+      <div></div>
     </div>
   );
 };

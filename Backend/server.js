@@ -11,6 +11,7 @@ import userRouter from './routes/user.router.js';
 import groupRouter from "./routes/group.router.js";
 import commentRouter from './routes/comment.router.js';
 import invitesRouter from './routes/invites.router.js';
+import essayRouter from './routes/essay.router.js';
 
 
 const app = express();
@@ -33,6 +34,7 @@ app.use('/api/users', userRouter);
 app.use('/api/groups', groupRouter)
 app.use('/api/groups', commentRouter)
 app.use('/api/invites', invitesRouter)
+app.use('/api/essays', essayRouter)
 
 app.get('/api/healthcheck', (req, res) => {
   res.send('Server is running');

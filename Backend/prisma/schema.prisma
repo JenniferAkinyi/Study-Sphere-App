@@ -25,6 +25,7 @@ model User {
   comments          Comment[]
   invitations       GroupInvitation[]
   memberships       GroupMember[]
+  authoredEssays     Essay[]
 }
 enum Role {
   OWNER
@@ -55,6 +56,7 @@ model Group{
   comments    Comment[]
   invitations GroupInvitation[]
   members     GroupMember[]
+  essays      Essay[]
 }
 enum InvitationStatus {
   PENDING
@@ -71,9 +73,20 @@ model GroupInvitation {
   group       Group    @relation(fields: [groupId], references: [id])
   user        User     @relation(fields: [userId], references: [id])
 }
+model Essay {
+  id        String   @id @default(uuid())
+  title     String
+  content   String
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId  String
+  group     Group    @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  groupId   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-
-
+  @@index([authorId])
+  @@index([groupId])
+}
 model Comment {
   id        String   @id @default(uuid())
   content   String
