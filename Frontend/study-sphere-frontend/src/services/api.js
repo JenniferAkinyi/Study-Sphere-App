@@ -66,4 +66,16 @@ export const fetchDiscoveredGroups = async () => {
   const response = await api.get('/groups/discover')
   return response.data
 }
+export const groupEssay = async (groupId) => {
+  const response = await api.get(`/groups/${groupId}/essay`)
+  return response.data
+}
+export const essayById = async (groupId, id) => {
+  const response = await api.get(`/groups/${groupId}/${id}`)
+  return response.data
+}
+export const postEssay = async(groupId) => {
+  const response = await api.post(`/groups/${groupId}/postessay`)
+  return response
+}
 

@@ -9,6 +9,7 @@ import PostDetails from './components/Posts/PostDetails'
 import StudyScreen from './components/Study Group/StudyScreen'
 // import StudyGoalsPage from './components/Study Group/Components/'
 import Group from "./components/Group/Group";
+import CreateEssay from "./components/Group/Components/CreateEssay";
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
               <Route path="/groups/:groupId" element={<Group />} />
               {/* <Route path="/studygoals" element={<Group />} /> */}
             </Route>
+            <Route path="/groups/:groupId/postessay" element={<CreateEssay />}/>
           </Routes>
         </SidebarProvider>
       </Router>

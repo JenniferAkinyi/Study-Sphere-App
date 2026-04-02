@@ -1,49 +1,73 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import Avatar from "../../Authentication/Avatar";
 import { GoClock } from "react-icons/go";
 import { CiBookmark, CiShare2 } from "react-icons/ci";
-import { useUser } from "../../../context/userContext";
+import { groupEssay } from "../../../services/api";
+import { useParams } from "react-router-dom";
+import timeAgo from "../../../utils/timeAgo";
+import { getReadingTime } from "../../../utils/readingTime";
 
 const AllFeed = () => {
-  const { user } = useUser();
+  const { groupId} = useParams()
+  const [essays, setEssays] = useState([])
+
+
+  useEffect(() => {
+    const getEssays = async () => {
+      try {
+        const data = await groupEssay(groupId)
+        setEssays(data.details)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    getEssays()
+  
+  }, [groupId])
   return (
-    <div className="p-4 bg-indigo-100">
-      <div className="flex items-center gap-2">
-        <div className="flex">
-          <Avatar
-            username={user?.name || "Guest"}
-            profileImage={user?.profileImage}
-            size={32}
-          />
-        </div>
-        <div>
-            <p className="font-semibold">{user?.name}</p>
-        </div>
-      </div>
-      <div>
-        <div>        
-            <h1 className="text-lg font-bold">Comprehensive guide to Schrodinger's Cat Paradox</h1>
-            <p className="text-gray-500">If the atom decays (a 50% probability within an hour), the Geiger
-                counter triggers the hammer to break the flask, releasing poison 
-                and killing the cat; if it does not decay, the cat lives. 
-                According to quantum superposition, until the box is opened, 
-                the atom is in a state of being both decayed and not decayed,
-                which mathematically entangles the cat into a superposition of 
-                being both alive and dead.
-            </p>
-        </div>
-        <div className="flex items-center justify-between mt-4">
-            <div className="flex items-center gap-1">
-                <GoClock className="hover:text-indigo-500"/>
-                <p className="text-sm text-gray-500">12 min read</p>
+    <>
+      <div className="space-y-4">
+        {essays.length === 0 ? (
+          <div className="p-4 text-sm">
+            Nothing on the Feed. Be the first to post
+          </div>
+        ) : (
+        essays.map((essay) => (
+          <div key={essay.id} className="p-4 bg-indigo-100 rounded-xl">
+            <div className="flex items-center gap-2">
+              <div className="flex">
+                <Avatar
+                  username={essay?.author.name}
+                  profileImage={essay?.author?.profileImage}
+                  size={32}
+                />
+              </div>
+              <div className="-space-y-1">
+                  <p className="text-sm font-semibold">{essay?.author?.name}</p>
+                  <p className="text-xs text-gray-500">{timeAgo.format(new Date(essay?.createdAt))}</p>
+              </div>
             </div>
-            <div className="flex gap-2">
-                <CiBookmark className="hover:text-indigo-500"/>
-                <CiShare2 className="hover:text-indigo-500"/>
+            <div>
+              <div>        
+                  <h1 className="text-lg font-bold">{essay?.title}</h1>
+                  <p className="text-gray-500 line-clamp-3">{essay?.content}</p>
+              </div>
+              <div className="flex items-center justify-between mt-4">
+                  <div className="flex items-center gap-1">
+                      <GoClock className="hover:text-indigo-500"/>
+                      <p className="text-sm text-gray-500">{getReadingTime(essay.content)}</p>
+                  </div>
+                  <div className="flex gap-2">
+                      <CiBookmark className="hover:text-indigo-500"/>
+                      <CiShare2 className="hover:text-indigo-500"/>
+                  </div>
+              </div>
             </div>
-        </div>
+          </div>
+        ))
+        )}  
       </div>
-    </div>
+    </>
   );
 };
 

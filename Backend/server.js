@@ -34,7 +34,7 @@ app.use('/api/users', userRouter);
 app.use('/api/groups', groupRouter)
 app.use('/api/groups', commentRouter)
 app.use('/api/invites', invitesRouter)
-app.use('/api/essays', essayRouter)
+app.use('/api/groups', essayRouter)
 
 app.get('/api/healthcheck', (req, res) => {
   res.send('Server is running');
