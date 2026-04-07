@@ -1,63 +1,79 @@
 import React, { useState } from "react";
-import { postEssay } from "../../../services/api";
-import { MdArrowBackIosNew } from "react-icons/md";
 import { useNavigate, useParams } from "react-router-dom";
-import { readingTime } from "reading-time-estimator";
+import { postEssay } from "../../../services/api";
+import { IoMdArrowRoundBack } from "react-icons/io";
+import Editor from "./Editor";
 
-const CreateEssay = () => {
-  const navigate = useNavigate();
-  const { groupId } = useParams();
-  const [title, setTitle] = useState("");
+const Essay = () => {
   const [content, setContent] = useState("");
+  const { groupId } = useParams();
+  const navigate = useNavigate();
+  const extractTitle = (html) => {
+    const div = document.createElement("div");
+    div.innerHTML = html;
+    const h3 = div.querySelector("h3");
+    return h3 ? h3.textContent : "";
+  };
 
-  const handleSubmit = async () => {
+  const handlePublish = async () => {
+    const title = extractTitle(content);
     if (!title.trim() || !content.trim()) return;
 
     try {
       await postEssay({ title, content, groupId });
       navigate(`/groups/${groupId}`);
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
     }
   };
+  const wordCount = content
+    .replace(/<[^>]+>/g, "")
+    .split(/\s+/)
+    .filter(Boolean).length;
+  const readTime = Math.ceil(wordCount / 200);
 
   return (
-    <div className="p-4">
-      <div className="flex justify-between">
-        <MdArrowBackIosNew
-          className="cursor-pointer hover:text-indigo-500"
-          onClick={() => navigate(`/groups/${groupId}`)}
-        />
-        <button className="px-4 py-2 font-semibold text-white bg-indigo-500 rounded-xl">
+    <div>
+      <div className="sticky top-0 z-50 flex items-center justify-between px-6 py-4 bg-gray-100">
+        <button
+          onClick={() => navigate(-1)}
+          className="flex items-center text-sm font-semibold text-gray-500 hover:text-black"
+        >
+          <IoMdArrowRoundBack /> Back
+        </button>
+        <button
+          onClick={handlePublish}
+          className="px-4 py-2 text-sm text-white bg-indigo-600 rounded-full hover:bg-indigo-700"
+        >
           Publish
         </button>
       </div>
-      <div className="max-w-3xl px-6 py-10 mx-auto">
-        <input
-          type="text"
-          placeholder="Title"
-          className="w-full mb-6 text-4xl font-bold placeholder-gray-300 outline-none"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-
-        <textarea
-          placeholder="Start writing your essay..."
-          className="w-full h-[500px] text-lg leading-relaxed outline-none resize-none placeholder-gray-400"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          rows={1}
-          onInput={(e) => {
-            e.target.style.height = "auto";
-            e.target.style.height = e.target.scrollHeight + "px";
-          }}
-        />
-        <p className="text-sm text-gray-400">
-          {readingTime(content || "", 200).text}
-        </p>
+      <div className="flex gap-4 px-2 py-6 mx-auto max-w-7xl">
+        
+        <div className="w-5/6">
+          <Editor content={content} setContent={setContent} />
+        </div>
+        <div className="text-xs text-gray-400 w-1/8">
+          <div className="sticky p-4 space-y-4 bg-white rounded-lg shadow top-24">
+            <div>
+              <p className="uppercase text-[10px] tracking-wide text-gray-300">
+                Word count
+              </p>
+              <p className="text-xs font-normal text-gray-500">{wordCount}</p>
+            </div>
+            <div>
+              <p className="uppercase text-[10px] tracking-wide text-gray-300">
+                Read time
+              </p>
+              <p className="text-xs font-normal text-gray-500">
+                {readTime} min
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
 };
 
-export default CreateEssay;
+export default Essay;
