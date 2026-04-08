@@ -6,17 +6,11 @@ import Editor from "./Editor";
 
 const Essay = () => {
   const [content, setContent] = useState("");
+  const [title, setTitle] = useState("");
   const { groupId } = useParams();
   const navigate = useNavigate();
-  const extractTitle = (html) => {
-    const div = document.createElement("div");
-    div.innerHTML = html;
-    const h3 = div.querySelector("h3");
-    return h3 ? h3.textContent : "";
-  };
 
   const handlePublish = async () => {
-    const title = extractTitle(content);
     if (!title.trim() || !content.trim()) return;
 
     try {
@@ -49,8 +43,14 @@ const Essay = () => {
         </button>
       </div>
       <div className="flex gap-4 px-2 py-6 mx-auto max-w-7xl">
-        
         <div className="w-5/6">
+          <input
+            type="text"
+            placeholder="Title"
+            className="w-full mb-6 text-2xl font-bold text-gray-500 placeholder-gray-300 border border-gray-300 outline-none"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
           <Editor content={content} setContent={setContent} />
         </div>
         <div className="text-xs text-gray-400 w-1/8">

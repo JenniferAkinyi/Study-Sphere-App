@@ -7,9 +7,10 @@ import Dashboard from "./components/Dashboard/Dashboard";
 import AppLayout from "./layout/AppLayout";
 import PostDetails from './components/Posts/PostDetails'
 import StudyScreen from './components/Study Group/StudyScreen'
-// import StudyGoalsPage from './components/Study Group/Components/'
+import StudyGoalsPage from './components/StudyGoal/StudyGoalsPage'
 import Group from "./components/Group/Group";
 import CreateEssay from "./components/Group/Components/CreateEssay";
+import EssayRead from "./components/Group/Components/EssayRead";
 
 
 function App() {
@@ -26,7 +27,8 @@ function App() {
               <Route path="/post/:id" element={<PostDetails />} />
               <Route path="/studygroup" element={<StudyScreen />} />
               <Route path="/groups/:groupId" element={<Group />} />
-              {/* <Route path="/studygoals" element={<Group />} /> */}
+              <Route path="/studygoals" element={<StudyGoalsPage />} />
+              <Route path="/groups/:groupId/:id" element={ <EssayRead />}/>
             </Route>
             <Route path="/groups/:groupId/postessay" element={<CreateEssay />}/>
           </Routes>

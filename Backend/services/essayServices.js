@@ -57,6 +57,9 @@ export async function updateEssayService(title, content, id) {
 export async function fetchEssayById(id) {
   const essay = await prisma.essay.findUnique({
     where: { id },
+    include: {
+      author: true
+    }
   });
   if (!essay) {
     throw new Error("Essay not found");

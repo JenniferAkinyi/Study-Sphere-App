@@ -25,7 +25,7 @@ const Editor = ({ content, setContent }) => {
   React.useEffect(() => {
     const handleClickOutside = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
-        setOpen(false);
+        setOpenMenu(false);
       }
     };
 
@@ -40,15 +40,7 @@ const Editor = ({ content, setContent }) => {
       Underline,
       Link,
       TextAlign.configure({ types: ["heading", "paragraph"] }),
-      Placeholder.configure({
-        showOnlyCurrent: false,
-        placeholder: ({ node }) => {
-          if (node.type.name === "heading") {
-            return "Title";
-          }
-          return "Start writing your story...";
-        },
-      }),
+      Placeholder,
       Document,
       Heading.configure({
         levels: [1, 2, 3, 4, 5, 6],
@@ -58,7 +50,7 @@ const Editor = ({ content, setContent }) => {
       Image.configure({
         resize: {
           enabled: true,
-          directions: ["top", "bottom", "left", "right"], // can be any direction or diagonal combination
+          directions: ["top", "bottom", "left", "right"],
           minWidth: 50,
           minHeight: 50,
           alwaysPreserveAspectRatio: true,
@@ -119,7 +111,7 @@ const Editor = ({ content, setContent }) => {
         },
       }),
     ],
-    content: content || "<h3></h3><p></p>",
+    content: content || "<p></p>",
     onUpdate: ({ editor }) => {
       setContent(editor.getHTML());
     },
