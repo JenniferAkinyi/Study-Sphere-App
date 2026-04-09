@@ -98,7 +98,7 @@ const Pomodoro = () => {
             {formatTime(timeLeft)}
           </p>
           <p className="mt-2 text-sm text-gray-500">
-            {mode === "focus" ? "Stay focused 🎯" : "Take a break 🌿"}
+            {mode === "focus" ? "Stay focused" : "Take a break"}
           </p>
         </div>
         <div className="flex gap-3">
