@@ -26,7 +26,20 @@ model User {
   invitations       GroupInvitation[]
   memberships       GroupMember[]
   authoredEssays     Essay[]
+  studySessions     StudySession[]
 }
+model StudySession {
+  id        String   @id @default(uuid())
+  userId    String
+  minutes   Int
+  date      DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@index([userId, date])
+  @@unique([userId, date])
+}
+
 enum Role {
   OWNER
   MEMBER

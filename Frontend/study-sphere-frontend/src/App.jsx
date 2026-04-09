@@ -11,6 +11,7 @@ import StudyGoalsPage from './components/StudyGoal/StudyGoalsPage'
 import Group from "./components/Group/Group";
 import CreateEssay from "./components/Group/Components/CreateEssay";
 import EssayRead from "./components/Group/Components/EssayRead";
+import Pomodoro from "./components/StudyGoal/Components/Pomodoro";
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
               <Route path="/groups/:groupId/:id" element={ <EssayRead />}/>
             </Route>
             <Route path="/groups/:groupId/postessay" element={<CreateEssay />}/>
+            <Route path="/pomodoro" element={<Pomodoro />}/>
           </Routes>
         </SidebarProvider>
       </Router>
