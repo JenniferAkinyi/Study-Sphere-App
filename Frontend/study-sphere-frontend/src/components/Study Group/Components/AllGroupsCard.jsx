@@ -6,11 +6,11 @@ import { useNavigate } from "react-router-dom";
 const AllGroupsCard = ({ group }) => {
   const navigate = useNavigate()
   return (
-    <div className="w-full p-5 bg-white border border-gray-200 sm:w-60 lg:w-60 rounded-xl">
+    <div className="w-full p-5 bg-white border border-gray-200 sm:w-60 lg:w-96 rounded-xl">
       <div className="space-y-1">
         <h1 className="text-base font-semibold text-gray-700">{group?.name}</h1>
-        <p className="text-sm text-gray-500">{group?.description}</p>
-      </div>
+        <p className="text-sm text-gray-500 line-clamp-4">{group?.description}</p>
+      </div> 
       <div className="flex items-center justify-between mt-4">
         <div className="flex -space-x-3">
           {group?.members?.slice(0, 2).map((member) => (

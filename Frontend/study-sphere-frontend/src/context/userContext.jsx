@@ -10,9 +10,16 @@ export const UserProvider = ({ children }) => {
       setUser(storedUser);
     }
   }, []);
-
+  const updateUser = (newUser) => {
+    setUser(newUser)
+    localStorage.setItem('user', JSON.stringify(newUser))
+  }
+  const clearUser = () => {
+    setUser(null)
+    localStorage.removeItem('user')
+  }
   return (
-    <UserContext.Provider value={{ user, setUser }}>
+    <UserContext.Provider value={{ user, setUser, updateUser, clearUser }}>
       {children}
     </UserContext.Provider>
   );

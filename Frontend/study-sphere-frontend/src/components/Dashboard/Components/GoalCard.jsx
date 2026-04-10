@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaFire } from "react-icons/fa";
 import { MdNavigateNext } from "react-icons/md";
 import { CircularProgressbar } from "react-circular-progressbar";
@@ -7,12 +7,19 @@ import { useUser } from "../../../context/userContext";
 
 const GoalCard = () => {
   const { user } = useUser();
-  const completedMinutes = user?.dailyStudyMinutes || 0;
+  const isSameDay = (dateString) => {
+    const today = new Date().toDateString()
+    const updated = new Date(dateString).toDateString()
+    return today === updated
+  }
+  const completedMinutes = isSameDay(user?.updatedAt)
+    ? user?.dailyStudyMinutes || 0
+    : 0
   const completedHours = completedMinutes / 60;
   const goal = user?.dailyGoalHours || 0;
   const streak = user?.currentStreak || 0;
   const percentage =
-    goal > 0 ? (completedHours / goal) * 100 : 0;
+    goal > 0 ? Math.min((completedHours / goal) * 100, 100) : 0;
 
   return (
     <div className="flex items-center justify-between max-w-sm p-4 bg-white border border-gray-200 shadow-sm rounded-xl">

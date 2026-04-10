@@ -7,10 +7,10 @@ export const logStudyMinutes = async (req, res) => {
     if (!minutes || minutes <= 0) {
       return res.status(400).json({ message: "Invalid minutes value" });
     }
-    const session = await logStudyMinutesService(userId, minutes);
+    const {session, updatedUser} = await logStudyMinutesService(userId, minutes);
     res
       .status(200)
-      .json({ message: "Study minutes logged successfully", session });
+      .json({ message: "Study minutes logged successfully", session, user: updatedUser });
   } catch (error) {
     console.error("Error logging study minutes:", error);
     res.status(500).json({ message: "Server error" });
@@ -26,3 +26,4 @@ export const getWeeklyStudyData = async(req, res) => {
         res.status(500).json({message: 'Server error'})
     }
 }
+

@@ -9,20 +9,16 @@ const Pomodoro = () => {
   const [isRunning, setIsRunning] = useState(false);
   const [mode, setMode] = useState("focus");
 
-  const { addStudyMinutes } = useUser(); // ✅ use context
-
-  // ✅ Save minutes when session ends
+  const { addStudyMinutes } = useUser();
   const handleSessionComplete = async () => {
     if (mode !== "focus") return;
 
     const minutesStudied = Math.floor((FOCUS_TIME - timeLeft) / 60);
 
     if (minutesStudied > 0) {
-      await addStudyMinutes(minutesStudied); // ✅ THIS triggers UI update
+      await addStudyMinutes(minutesStudied); 
     }
   };
-
-  // ⏱ Timer logic
   useEffect(() => {
     if (!isRunning) return;
 
@@ -30,7 +26,6 @@ const Pomodoro = () => {
       setTimeLeft((prev) => {
         if (prev === 0) {
           handleSessionComplete();
-
           if (mode === "focus") {
             setMode("break");
             return BREAK_TIME;
