@@ -43,7 +43,7 @@ const Sidebar = () => {
           Study Sphere
         </p>
       </div>
-      <div className="p-4">
+      <div className="p-1">
         <ul className="space-y-2">
           <li>
             <NavLink

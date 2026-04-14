@@ -51,7 +51,7 @@ const AllFeed = () => {
               </div>
               <div>
                 <div onClick={() => navigate(`/groups/${groupId}/${essay.id}`)}>
-                  <h1 className="text-lg font-bold">{essay?.title}</h1>
+                  <h1 className="text-3xl font-bold">{essay?.title}</h1>
                   <div
                     className="prose prose-lg cursor-pointer max-w-none prose-headings:font-bold prose-p:text-gray-700 prose-strong:text-black line-clamp-3"
                     dangerouslySetInnerHTML={{ __html: essay?.content }}

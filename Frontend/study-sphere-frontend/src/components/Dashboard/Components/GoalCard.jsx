@@ -7,14 +7,7 @@ import { useUser } from "../../../context/userContext";
 
 const GoalCard = () => {
   const { user } = useUser();
-  const isSameDay = (dateString) => {
-    const today = new Date().toDateString()
-    const updated = new Date(dateString).toDateString()
-    return today === updated
-  }
-  const completedMinutes = isSameDay(user?.updatedAt)
-    ? user?.dailyStudyMinutes || 0
-    : 0
+  const completedMinutes = user?.dailyStudyMinutes || 0
   const completedHours = completedMinutes / 60;
   const goal = user?.dailyGoalHours || 0;
   const streak = user?.currentStreak || 0;

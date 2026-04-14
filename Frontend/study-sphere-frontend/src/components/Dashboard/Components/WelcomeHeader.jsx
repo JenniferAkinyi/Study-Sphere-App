@@ -3,10 +3,10 @@ import { useUser } from "../../../context/userContext"
 
 const WelcomeHeader = () => {
   const { loading } =  useUser()
-  const user = JSON.parse(localStorage.getItem('user'))
+  const {user} = useUser()
   
   return (
-    <div className='space-y-2'>
+    <div className='flex flex-col justify-center space-y-2'>
         <h1 className='text-2xl font-bold '>
           Welcome back,{" "}
           <span className='text-indigo-500'>

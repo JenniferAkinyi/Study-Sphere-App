@@ -14,17 +14,15 @@ const JoinedGroups = () => {
         console.log(error);
       }
     };
-
     getGroups();
   }, []);
 
   return (
     <>
-      <div className="flex justify-between px-7">
+      <div className="flex justify-between">
         <h1 className="text-lg font-bold">Joined Study Groups</h1>
         <p className="font-semibold text-indigo-500">View all</p>
       </div>
-
       <div className="flex flex-row gap-4 mt-3 px-7">
          {groups.length === 0 ? (
           <p className="mt-3 text-sm text-gray-500 px-7">

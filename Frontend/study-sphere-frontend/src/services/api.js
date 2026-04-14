@@ -78,8 +78,8 @@ export const postEssay = async({title, content, groupId}) => {
   const response = await api.post(`/groups/${groupId}/postessay`, {title, content})
   return response.data
 }
-export const logStudyMinutes = async(minutes) => {
-  const response = await api.post('/study/log', {minutes})
+export const logStudyMinutes = async(userId, minutes) => {
+  const response = await api.post('/study/log', {userId, minutes})
   return response.data
 }
 export const weeklyStudyData = async (userId) => {

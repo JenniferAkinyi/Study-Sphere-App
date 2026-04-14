@@ -13,8 +13,8 @@ const Dashboard = () => {
         <WelcomeHeader/>
         <GoalCard />
       </div>
-      <div className="grid grid-cols-1 gap-8 lg:grid-cols-[7fr_3fr]">
-        <div className="space-y-8">
+      <div className="grid grid-cols-1 gap-10 lg:grid-cols-[7fr_3fr]">
+        <div className="space-y-5">
           <JoinedGroups />
           <RecentActivity />
         </div>
