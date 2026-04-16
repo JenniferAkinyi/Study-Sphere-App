@@ -33,7 +33,7 @@ app.use(morgan('dev'))
 
 app.use('/api/users', userRouter);
 app.use('/api/groups', groupRouter)
-app.use('/api/groups', commentRouter)
+app.use('/api/comments', commentRouter)
 app.use('/api/invites', invitesRouter)
 app.use('/api/groups', essayRouter)
 app.use('/api/study', studyRouter)

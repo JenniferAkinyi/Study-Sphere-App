@@ -28,6 +28,9 @@ model User {
   memberships       GroupMember[]
   authoredEssays     Essay[]
   studySessions     StudySession[]
+  likedEssays       EssayLike[]
+  bookmarkedEssays   Bookmark[]
+  likedComments     CommentLike[]
 }
 model StudySession {
   id        String   @id @default(uuid())
@@ -97,9 +100,35 @@ model Essay {
   groupId   String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  editedAt  DateTime?
+  likes     EssayLike[]
+  bookmarks Bookmark[]
+  comments  Comment[]
 
   @@index([authorId])
   @@index([groupId])
+}
+model EssayLike {
+  id        String   @id @default(uuid())
+  essayId   String
+  userId    String
+  createdAt DateTime @default(now())
+
+  essay     Essay    @relation(fields: [essayId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([essayId, userId])
+}
+model Bookmark {
+  id        String   @id @default(uuid())
+  userId    String
+  essayId   String
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  essay     Essay    @relation(fields: [essayId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, essayId])
 }
 model Comment {
   id        String   @id @default(uuid())
@@ -108,7 +137,8 @@ model Comment {
   authorId  String
   group     Group    @relation(fields: [groupId], references: [id], onDelete: Cascade)
   groupId   String
-
+  essayId   String
+  essay     Essay    @relation(fields: [essayId], references: [id], onDelete: Cascade)
   parentId  String?  
   parent    Comment? @relation("CommentReplies", fields: [parentId], references: [id])
   replies   Comment[] @relation("CommentReplies")
@@ -117,5 +147,17 @@ model Comment {
   depth     Int      @default(0)
   createdAt DateTime @default(now())
   editedAt  DateTime?
+  likes     CommentLike[]
+}
+model CommentLike {
+  id        String   @id @default(uuid())
+  commentId String
+  userId    String
+  createdAt DateTime @default(now())
+
+  comment   Comment  @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([commentId, userId])
 }
 

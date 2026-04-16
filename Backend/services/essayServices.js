@@ -58,8 +58,8 @@ export async function fetchEssayById(id) {
   const essay = await prisma.essay.findUnique({
     where: { id },
     include: {
-      author: true
-    }
+      author: true,
+    },
   });
   if (!essay) {
     throw new Error("Essay not found");
@@ -78,3 +78,73 @@ export async function deleteEssayService(id) {
   });
   return { message: "Essay deleted successfully" };
 }
+export async function essayLikeService(userId, essayId) {
+  const existingEssay = await prisma.essayLike.findUnique({
+    where: {
+      essayId_userId: {
+        userId,
+        essayId,
+      },
+    },
+  });
+  if (existingEssay) {
+    await prisma.essayLike.delete({
+      where: { id: existingEssay.id },
+    });
+    return { liked: false };
+  }
+  await prisma.essayLike.create({
+    data: {
+      userId,
+      essayId,
+    },
+  });
+  return { liked: true };
+}
+export async function essayBookmarkService(userId, essayId) {
+  const existingEssay = await prisma.bookmark.findUnique({
+    where: {
+      userId_essayId: {
+        userId,
+        essayId,
+      },
+    },
+  });
+  if (existingEssay) {
+    await prisma.bookmark.delete({
+      where: { id: existingEssay.id },
+    });
+    return { bookmarked: false };
+  }
+  await prisma.bookmark.create({
+    data: {
+      userId, essayId
+    }
+  })
+  return { bookmarked: true}
+}
+export const getEssayEngagementService = async (userId, essayId) => {
+  const essay = await prisma.essay.findUnique({
+    where: { id: essayId },
+    include: {
+      likes: true,
+      bookmarks: true,
+      _count: {
+        select: {
+          likes: true,
+          bookmarks: true,
+        },
+      },
+    },
+  });
+
+  const liked = essay.likes.some((l) => l.userId === userId);
+  const bookmarked = essay.bookmarks.some((b) => b.userId === userId);
+
+  return {
+    liked,
+    bookmarked,
+    likesCount: essay._count.likes,
+    bookmarksCount: essay._count.bookmarks,
+  };
+};

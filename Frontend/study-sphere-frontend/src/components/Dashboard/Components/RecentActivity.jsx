@@ -3,9 +3,6 @@ import Avatar from "../../Authentication/Avatar";
 import { useUser } from "../../../context/userContext";
 import { FaFileAlt } from "react-icons/fa";
 
-/* =========================
-   Activity Item Component
-========================= */
 const ActivityItem = ({ activity }) => {
   return (
     <div className="flex gap-3 px-2 py-3 transition hover:bg-gray-50 rounded-xl">
@@ -43,13 +40,8 @@ const ActivityItem = ({ activity }) => {
   );
 };
 
-/* =========================
-   Recent Activity Component
-========================= */
 const RecentActivity = () => {
   const { user } = useUser();
-
-  // 🔹 Temporary static data (replace with API later)
   const activities = [
     {
       id: 1,
@@ -77,7 +69,6 @@ const RecentActivity = () => {
       {/* Title */}
       <p className="mb-3 text-lg font-semibold">Recent activity</p>
 
-      {/* Activity Feed */}
       <div className="w-full max-w-2xl p-4 bg-white shadow-md rounded-2xl">
         {activities.length === 0 ? (
           <p className="text-sm text-gray-500">
