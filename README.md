@@ -21,3 +21,32 @@ Study Sphere is a modern web application designed to help students organize thei
 
 ---
 ## Screenshots
+
+### Signup Page
+![Dashboard](https://github.com/JenniferAkinyi/Study-Sphere-App/blob/main/Frontend/study-sphere-frontend/src/assets/signup.jpg)
+
+### Login Page
+![Dashboard](https://github.com/JenniferAkinyi/Study-Sphere-App/blob/main/Frontend/study-sphere-frontend/src/assets/login.jpg)
+
+### Dashboard
+![Dashboard](https://github.com/JenniferAkinyi/Study-Sphere-App/blob/main/Frontend/study-sphere-frontend/src/assets/dashboard.jpg)
+
+### Create group page
+![Dashboard](https://github.com/JenniferAkinyi/Study-Sphere-App/blob/main/Frontend/study-sphere-frontend/src/assets/creategroup.jpg)
+
+### View groups 
+![Dashboard](https://github.com/JenniferAkinyi/Study-Sphere-App/blob/main/Frontend/study-sphere-frontend/src/assets/groupview.jpg)
+
+### Study goals
+![Dashboard](https://github.com/JenniferAkinyi/Study-Sphere-App/blob/main/Frontend/study-sphere-frontend/src/assets/studygoals.jpg)
+
+### Study Group
+![Dashboard](https://github.com/JenniferAkinyi/Study-Sphere-App/blob/main/Frontend/study-sphere-frontend/src/assets/studygroup.jpg)
+
+### Write Essay page
+![Dashboard](https://github.com/JenniferAkinyi/Study-Sphere-App/blob/main/Frontend/study-sphere-frontend/src/assets/essaywriting.jpg)
+
+### Pomodoro timer
+![Dashboard](https://github.com/JenniferAkinyi/Study-Sphere-App/blob/main/Frontend/study-sphere-frontend/src/assets/pomodoro.jpg)
+
+---
